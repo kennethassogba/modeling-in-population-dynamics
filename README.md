@@ -1,1 +1,4 @@
-# modeling-in-population-dynamics
+## Discrétisation d’Equations Différentielles
+
+# Modélisation en dynamique des populations
+
