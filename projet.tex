@@ -1,0 +1,318 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\begin{document}
+			\begin{center}
+		UNIVERSITE D'ABOMEY CALAVI (UAC) 	\\
+	\end{center}
+	
+	\begin{center}
+		INSTITUT DE MATHEMATIQUE ET DE SCIENCES PHYSIQUES (IMSP)     	\\
+	\end{center}
+	\begin{center}
+		Centre d'Excellence Africain en Science Mathématiques et Applications: (CEA-SMA)
+	\end{center}
+	\vspace{1.5cm}
+	\begin{center} 
+ $\scalebox{2}{ Projet: Discrétisation d'EDO }$ \\
+ 	\vspace{1.5cm}
+ Modélisation en dynamique des populations
+	\end{center}
+	\vspace{9cm}
+	Présenté par:   \hfill Supervisé par :\\
+	Anne-Marie AHOUNOU   \hfill Professeur Kaber M. SIDI \\
+	Kenneth ASSOGBA\\\\
+	
+La modélisation des dynamiques des populations vise à expliquer, et éventuellement à prévoir, les évolutions d'une population. La plupart du temps, elle se limite à la description des variations de la taille de la population, mais elle peut aussi permettre de décrire l'évolution de sa structure en âge, voire de sa structure génétique. De nombreux scientifiques ont, proposé des modèles, c'est-à-dire des représentations simplifiées de telles dynamiques, le plus souvent sous forme mathématique.\\
+Dans ce rapport pour notre projet de discrétisation d'EDO, nous étudierons quatres modèles notamment ceux de Lotka-Volterra et de Verhulst.\\
+Dans chaque cas, nous ferons une étude des points d'équilibre et une résolution numérique avec Scilab.
+Enfin nous présenterons une généralisation de l'un des modèles.\\
+
+\section{Équation logistique}
+L'évolution au cours du temps d'une population évoluant en milieu fermé peut être modélisée par
+\begin{equation}
+u'(t)=au(t)(1-bu(t))
+\end{equation}
+Une observation immédiate montre que
+\begin{enumerate}
+	\item la fonction constante 0 est solution de cette équation
+	\item la fonction constante $ K=1/b $ est solution de cette équation
+\end{enumerate}
+La recherche des fonctions strictement positives solutions du probleme de Cauchy avec la condition initiale $ u(t_0)=u_0 $ conduit à la solution logistique
+\begin{equation}
+u(t)=\dfrac{1}{b}\dfrac{1}{1+(\dfrac{1}{bu_0}-1)e^{-at}}
+\end{equation}
+où l'on observe que \textbf{la population tend vers le point $ K=1/b $, qu'elle est croissante si la population initiale est inférieure à K et décroissante sinon}.
+\subsection {Stabilité des états d'équilibre}
+On pose $ f(u)=au(1-bu) $ \\
+Nous avons déjà les états d'équilibres qui sont solutions de l'équation $ f(u)=0 $. Étudions la stabilité de ces solutions.\\
+Par suite $ f'(u)=a-2abu $\\
+Ainsi
+\begin{enumerate}
+	\item $ f'(0)=a>0 $ c'est un \textbf{équilibre instable}
+	\item $ f'(1/b)=a-2a=-a<0 $ c'est un \textbf{équilibre stable}
+\end{enumerate}
+\subsection {Solutions graphiques}
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\linewidth]{1a1}
+\caption{Équation logistique avec Euleur explicite et ODE}
+\label{fig:1a1}
+\end{figure}
+
+\newpage
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{1a2}
+\caption{a=0.5 b=0.1 et $u_0$ varie.}
+\label{fig:1a2}
+\end{figure}
+
+\section{Système de Lotka-Volterra (proies-prédateurs)}
+On considère cette fois deux populations.
+Une population de proies dont l'évolution est donnée par $ u_1(t) $ et une population de prédateurs
+dont l'évolution est donnée par $ u_2(t) $. Voici une modélisation de l'interaction entre ces deux
+populations:
+$$
+\left\{
+\begin{array}{rl}
+u'_1(t)=au_1(t)-bu_1(t)u_2(t) \\
+u'_2(t)=-cu_2(t)+du_1(t)u_2(t)
+\end{array}
+\right.
+$$
+\subsection{États d'équilibres de la population}
+Un état d'équilibre de la population est observé quand aucune des deux populations en présence n'évolue, c'est-à-dire quand les dérivées correspondantes sont nulles, ce qui se traduit par le système d'équations:
+$$
+\left\{
+\begin{array}{rl}
+au_1(t)-bu_1(t)u_2(t)=0 \\
+-cu_2(t)+du_1(t)u_2(t)=0
+\end{array}
+\right.
+$$
+Nous obtenons deux solutions:
+$$
+U_1=
+\left\{
+\begin{array}{rl}
+u_1(t)=0\\
+u_2(t)=0
+\end{array}
+\right.
+$$
+et
+$$
+U_2=
+\left\{
+\begin{array}{rl}
+u_1(t)=c/d\\
+u_2(t)=a/b
+\end{array}
+\right.
+$$
+La première solution correspond à une extinction définitive des deux espèces, la seconde à des valeurs pour les deux populations, dépendant des paramètres qui restent stables.
+
+\subsection{Stabilité des états d'équilibre}
+La matrice jacobienne du système est
+$$
+{\displaystyle J(u_1(t),u_2(t))=
+	{\begin{bmatrix}
+		a -bu_2(t)&-bu_1(t)\\
+		du_2(t)&-c+du_1(t)\\
+		\end{bmatrix}}}
+$$
+\begin{enumerate}
+	\item Point $ U_1 $\\
+	Au premier point fixe $ (0,0) $, cette matrice prend la valeur :
+	$$	
+	{\displaystyle J(0,0)={\begin{bmatrix}a &0\\0&-c \\\end{bmatrix}},}
+	$$
+	qui a pour valeurs propres :
+	$$
+	{\displaystyle \lambda _{1}=a ,\quad \lambda _{2}=-c .}
+	$$
+	Ces valeurs propres sont toujours de signes opposés, ce qui montre que ce point fixe est un \textbf{point col}. Ce n'est donc pas un point fixe stable, ce qui montre en particulier que, suivant ce modèle, \textbf{l'extinction des deux espèces est difficile à obtenir}.
+	\item Point $ U_2 $\\
+	Au second point fixe, la valeur suivante est obtenue :
+	$$	
+	{\displaystyle J\left({\frac {a }{b }},{\frac {c }{d }}\right)={\begin{bmatrix}0&-{\frac {cb }{d }}\\{\frac {ad}{b}}&0\\\end{bmatrix}}}
+	$$
+	et elle a pour valeurs propres :
+	$$
+	{\displaystyle \lambda _{1}=i{\sqrt {ac}},\quad \lambda _{2}=-i{\sqrt {ac}}}
+	$$
+	Ce point fixe est donc un foyer et plus particulièrement un \textbf{centre}, ce qui signifie que \textbf{les populations de proies et prédateurs oscillent autour de leurs valeurs en ce point fixe}.
+\end{enumerate}
+
+\newpage
+\subsection {Solutions graphiques}
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\linewidth]{2a}
+\caption{Solutions des équations de Lotka-Volterra obtenues par un algorithme de Runge-Kutta d'ordre 4, pour une valeur de a=1, b=0.2, c=0.5, d=0.1}
+\label{fig:2a}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\linewidth]{2b}
+\caption{Representation du nombre de predateur en fonction du nombre de proies avec le schema de Crank Nicholson en temps tres grand (T=1000)}
+\label{fig:2b}
+\end{figure}
+
+\newpage
+
+\section{Modèle logistique de Verhulst}
+Dans cette modèlisation, l'évolution des prédateurs est modifiée en y rajoutant un terme logistique
+$$
+\left\{
+\begin{array}{rl}
+u'_1(t)=au_1(t)-eu_1(t)^2-bu_1(t)u_2(t) \\
+u'_2(t)=-cu_2(t)+du_1(t)u_2(t)
+\end{array}
+\right.
+$$
+\subsection{États d'équilibres de la population}
+On pose:
+$$
+\left\{
+\begin{array}{rl}
+au_1(t)-eu_1(t)^2-bu_1(t)u_2(t)=0 \\
+-cu_2(t)+du_1(t)u_2(t)=0
+\end{array}
+\right.
+$$
+Et on obtient de facon directe comme points d'equilibre: $(0,0)$ et $(1/e,0)$
+\begin{enumerate}
+	\item si $\dfrac{c}{d}<\dfrac{1}{e}$ alors on a 3 points d'equilibre: $(0,0)$, $(1/e,0)$ et $(\dfrac{c}{d},\dfrac{a}{b}(1-\dfrac{ec}{d}))$
+	\item si $\dfrac{c}{d}>\dfrac{1}{e}$ alors on a 2 points d'equilibre: $(0,0)$et $(1/e,0)$
+\end{enumerate}
+\subsection{Stabilité des états d'équilibre}
+La matrice jacobienne du système est:
+$$
+{\displaystyle J(u_1(t),u_2(t))=
+	{\begin{bmatrix}
+		a-2aeu_1(t)-bu_2(t)&-bu_1(t)\\
+		-du_2(t)&-c+du_1(t)\\
+		\end{bmatrix}}}
+$$
+\begin{enumerate}
+	\item Stabilite de $(0,0)$\\
+	$$
+	{\displaystyle J(0,0)=
+		{\begin{bmatrix}
+			a&0\\
+			0&-c\\
+			\end{bmatrix}}}
+	$$
+	Une des valeurs propres est $a>0$ \textbf{l'equilibre est donc instable}\\
+	\textbf{Quelque soit les valeurs des paramètres $a, b, c, d, e$ et la
+	condition initiale la trajectoire d'une solution s'éloigne toujours de $(0,0)$}
+	\item Stabilite de $(1/e,0)$\\
+	$$
+	{\displaystyle J(1/e,0)=
+		{\begin{bmatrix}
+			-a&\dfrac{-b}{e}\\
+			0&-c+\dfrac{d}{e}\\
+			\end{bmatrix}}}
+	$$
+	Valeurs propres: $\lambda_1=-a<0$ et $\lambda_2=-c+\dfrac{d}{e}$ \textbf{l'equilibre est donc instable}\\
+	\item[a)] si $\dfrac{c}{d}<\dfrac{1}{e}$ alors $\lambda_2>0$ \textbf{equilibre instable}\\
+	\item[b)] si $\dfrac{c}{d}>\dfrac{1}{e}$alors $\lambda_2<0$ \textbf{equilibre stable}\\
+	
+\end{enumerate}
+
+\newpage
+
+\subsection {Solutions graphiques}
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\linewidth]{3a}
+\caption{Modèle logistique de Verhulst Schéma RK4}
+\label{fig:3a}
+\end{figure}
+
+\section{Populations en compétition}
+Les équations sont:
+$$
+{\displaystyle {\begin{cases}{u'_{1}(t)}=u_{1}(t)\left(1-u_{1}(t)-\theta _{12}u_{2}(t)\right)\\{u'_{2}(t)}=au_{2}(t)\left(1-u_{2}(t)-\theta_{21}u_{1}(t)\right)\end{cases}}}
+$$
+Où $ \theta_{ij} $ représente l'effet de la populataion $j$ sur la population $i$\\
+\subsection{États d'équilibres de la population}
+Les équilibres du système sont les points où les deux dérivées s'annulent simultanément. Il y en a au moins trois: (0,0) correspondant à l'extinction des deux espèces ainsi que (1,0) et (0,1) correspondants à l'exclusion compétitive de l'une ou l'autre espèce.
+
+\subsection{Stabilité des états d'équilibre}
+La matrice jacobienne du système est:
+$$
+{\displaystyle J(u_1(t),u_2(t))=
+	{\begin{bmatrix}
+		1-2u_1(t)-\theta_{12}u_2(t)&-\theta_{12}u_1(t)\\
+		-\theta_{21}au_2(t)&a(1-2u_2(t)-\theta_{21}u_1(t)\\
+		\end{bmatrix}}}
+$$
+\begin{enumerate}
+	\item $(0,0)$ a pour valeur propres associées $(1,a)$. Cet équilibre est donc toujours un \textbf{noeud instable}.
+	\item $(0,1)$ a pour valeurs propres associées $(-1, a(1-\theta_{12}))$. Cet équilibre est donc un \textbf{noeud stable si $\theta_{12}>1$}.
+	\item $(1,0)$ a pour valeurs propres associées $(1-\theta_{21},-a)$. Cet équilibre est donc un \textbf{noeud stable si $\theta_{21}>1$}.
+\end{enumerate}
+La coexistence stable des deux espèces n'est possible que si les deux équilibres d'exclusion compétitive sont simultanément instables. C'est à dire si $\theta_{12}<1$ et $\theta_{21}<1$. L'interprétation écologique de cette condition est la nécessité que la compétition interspécifique (dont l'intensité est représentée par les paramètres $\theta_{12}$ et $\theta_{21}$) soit plus faible que la compétition intraspécifique dont l'intensité vaut ici 1.
+
+\newpage
+
+\subsection {Solutions numeriques}
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\linewidth]{4a}
+\caption{Populations en compétition Schéma RK4}
+\label{fig:4a}
+\end{figure}
+
+\section{Généralisation}
+Nous nous proposons de generaliser le modele des populations en compétition:\\
+$$
+{\displaystyle {\begin{cases}{u'_{1}(t)}=r_{1}u_{1}\left(1-\left({u_{1}+\theta _{12}u_{2} \over K_{1}}\right)\right)\\{u'_{2}(t)}=r_{2}u_{2}\left(1-\left({u_{2}+\theta _{21}u_{1} \over K_{2}}\right)\right)\end{cases}}}
+$$
+Avec un taux de croissance $ r_1=1 $ (respectivement $ r_2=a $) et une capacité biotique $ K_1=1 $ (respectivement $ K_2=1 $)\\
+On obtient le modele du projet:
+$$
+{\displaystyle {\begin{cases}{u'_{1}(t)}=u_{1}(t)\left(1-u_{1}(t)-\theta _{12}u_{2}(t)\right)\\{u'_{2}(t)}=au_{2}(t)\left(1-u_{2}(t)-\theta_{21}u_{1}(t)\right)\end{cases}}}
+$$
+A l'ordre 3 on obtient:\\
+$$
+\left\{
+\begin{array}{rl}
+u'_1(t)=u_1(t)(1-u_1(t)-\theta_{12}u_2(t)-\theta_{13}u_3(t)) \\
+u'_2(t)=au_2(t)(1-u_2(t)-\theta_{21}u_1(t)-\theta_{23}u_1(t)) \\
+u'_3(t)=bu_3(t)(1-u_3(t)-\theta_{31}u_1(t)-\theta_{32}u_2(t))
+\end{array}
+\right.
+$$
+Où $ \theta_{ij} $ représente l'effet de la populataion $j$ sur la population $i$\\
+Ce modèle peut être généralisé à un nombre quelconque d'espèces en compétition:
+$$
+{\displaystyle {u'_{i}(t)}=r_{i}u_{i}(t)\left(1-{\frac {\sum _{j=1}^{R}\theta _{ij}u_{j}(t)}{K_{i}}}\right)}
+$$
+Où R est le nombre d'espèces en compétition. On remarque l'apparition de terme $ a_{ii} $ dont la valeur est généralement fixée à 1 par souci de cohérence avec le modèle de croissance logistique.
+\subsection {Solutions graphiques}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\linewidth]{5a}
+\caption{énéralisation Populations en compétition 5.Schéma RK4}
+\label{fig:5a}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{5b}
+\caption{Representation 3D de la generalisation choisie(Competition-RK4)}
+\label{fig:5b}
+\end{figure}
+$ $
+
+\end{document}
