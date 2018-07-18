@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.18)  6 DEC 2017 23:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.6.24)  16 JUL 2018 16:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -353,8 +353,8 @@ Package pdftex.def Info: 5b.png used on input line 312.
  [12 <./5a.png>] [13 <./5b.png>] (./projet.aux) ) 
 Here is how much of TeX's memory you used:
  2475 strings out of 493029
- 32432 string characters out of 6136233
- 94695 words of memory out of 5000000
+ 32432 string characters out of 6136234
+ 94697 words of memory out of 5000000
  5973 multiletter control sequences out of 15000+600000
  9803 words of font info for 37 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -368,7 +368,7 @@ nts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on projet.pdf (13 pages, 204692 bytes).
+Output written on projet.pdf (13 pages, 204699 bytes).
 PDF statistics:
  100 PDF objects out of 1000 (max. 8388607)
  59 compressed objects within 1 object stream

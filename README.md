@@ -1,6 +1,7 @@
 ## Discrétisation d’Equations Différentielles Ordinaires
 
 # Modélisation en dynamique des populations
+Projet donné par le Prof. [Sidi KABER](https://www.ljll.math.upmc.fr/kaber/).
 
 [![DOWNLOAD](https://img.shields.io/badge/Download-Subject-red.svg)](https://github.com/kenn44/modeling-in-population-dynamics/raw/master/subject.pdf)
 [![DOWNLOAD](https://img.shields.io/badge/Download-Project-green.svg)](https://github.com/kenn44/modeling-in-population-dynamics/raw/master/projet.pdf)
