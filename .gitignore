@@ -15,4 +15,4 @@
 *.backup
 *.gz
 
-subject.pdf
+/subject.pdf
